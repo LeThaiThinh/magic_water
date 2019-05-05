@@ -14,8 +14,8 @@ const int screen_bpp = 16;
 const int RemTurn_Height = 400;
 
 const int RemTurn_Width = 400;
-#define rowmax 10
-#define columnmax 10
+#define rowmax 80
+#define columnmax 80
 static SDL_Event event;   
 class Game
 {
@@ -33,10 +33,12 @@ public:
     static SDL_Renderer *renderer;
 	void layhangchuc();
 	void layhangdonvi();
+
 private:
     bool isRunning = false;
-	int countturn=30;
+	int countturn=20;
+	bool dangno;
     SDL_Window *window;
-	SDL_Texture* bkground = NULL,* RemainingTurn,*chuctex,*donvitex;
-	SDL_Rect bkgr,remturn,chuc,donvi;
+	SDL_Texture* bkground = NULL,* RemainingTurn,*chuctex,*donvitex, *youlosetex;
+	SDL_Rect youlose,bkgr,remturn,chuc,donvi;
 };
