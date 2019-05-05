@@ -1,8 +1,9 @@
 #pragma once
 #include"Game.h"
 #include<vector>
-#define BlastWidth 32
-#define BlastHeight 32
+#define BlastWidth (int)(Screen_Height/columnmax/2.5)
+#define BlastHeight (int)(Screen_Height/rowmax/2.5)
+#define BlastV 2
 class Blast :public BaseObj
 {
 public:
