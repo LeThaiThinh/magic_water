@@ -3,8 +3,8 @@
 #include"Blast.h"
 #include<vector>
 #include"BaseObject.h"
-#define WidthMainObj  80
-#define HeightMainObj  80
+#define WidthMainObj  (int)(Screen_Height/columnmax)
+#define HeightMainObj (int)(Screen_Height/rowmax)
 class MainObj :public BaseObj {
 public:
 	enum Lvl {
@@ -18,21 +18,15 @@ public:
 	MainObj();
 	~MainObj();
 	void update();
-	void HandleEvent();
 	void render();
 	void SetLvl(int Lvl) { lvl = Lvl; }
 	int GetLvl()const { return lvl; }
-	void MakeBlast(MainObj* waterlist);
-	std::vector<Blast*> GetBlastListUp() const  {return BlastListUp;}
-	std::vector<Blast*> GetBlastListDown() const { return BlastListDown; }
-	std::vector<Blast*> GetBlastListLeft() const { return BlastListLeft; }
-	std::vector<Blast*> GetBlastListRight() const { return BlastListRight; }
-
+	int MakeBlast(MainObj* waterlist);
 private:
+	int Countblastremain;
 	int lvl;
-	std::vector<Blast*> BlastListUp;
-	std::vector<Blast*> BlastListDown;
-	std::vector<Blast*> BlastListLeft;
-	std::vector<Blast*> BlastListRight;
 	Blast* BlastDown;
+	Blast* BlastUp;
+	Blast* BlastRight;
+	Blast* BlastLeft;
 };
