@@ -34,6 +34,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	//bkgr
 	bkgr.h = Screen_Height; bkgr.w = Screen_Width; bkgr.x = 0; bkgr.y = 0;
 	bkground = TextureManager::LoadTexture("pic/bkground.png");
+	//youlose
+	youlose.h = Screen_Height; youlose.w = Screen_Width; youlose.x = 0; youlose.y = 0;
+	youlosetex = TextureManager::LoadTexture("pic/youlose.png");
 	//remainingturn
 	remturn.h = RemTurn_Height; remturn.w = RemTurn_Width; remturn.x = 800; remturn.y = 0;
 	RemainingTurn = TextureManager::LoadTexture("pic/RemainingTurn.png");
@@ -45,12 +48,12 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		for (int column = 0; column < columnmax; column++)
 		{
 			
-			int a = rand() % 15;
-			if (a < 3)a = 0;
-			else if (a < 7)a = 1;
-			else if (a < 10)a = 2;
-			else if (a < 13)a = 3;
-			else if (a < 16)a = 4;
+			int a = rand() % 20;
+			if (a < 8)a = 0;
+			else if (a < 11)a = 1;
+			else if (a < 16)a = 2;
+			else if (a < 19)a = 3;
+			else if (a < 20)a = 4;
 			WaterList[row * columnmax + column].SetLvl(a);
 			WaterList[row * columnmax + column].SetRectDes(column* WidthMainObj, row  * HeightMainObj);
 			WaterList[row * columnmax + column].update();
@@ -85,7 +88,6 @@ void Game::handleEvents()
 			countturn -= 1;
 			layhangchuc();
 			layhangdonvi();
-			std::cout << countturn << std::endl;
 			WaterList[event.button.x / WidthMainObj + event.button.y / HeightMainObj * columnmax].SetLvl(lvl_ + 1);
 			WaterList[event.button.x / WidthMainObj + event.button.y / HeightMainObj * columnmax].update();
 			}
@@ -117,19 +119,26 @@ void Game::render()
 
 		}
 	}
+	for (int row = 0; row < rowmax; row++)
+	{
+		for (int column = 0; column < columnmax; column++)
+		{
+			if (WaterList[row * columnmax + column].MakeBlast(WaterList))
+				dangno = true;
+		}
+	}
 	if (remainingwater == 0 )
 		if (MessageBox(NULL, "you win", "info", MB_OK) == IDOK)
 		{
 			clean();
 		}
-	for (int row = 0; row < rowmax; row++)
-	{
-		for (int column = 0; column < columnmax; column++)
-		{
-			WaterList[row * columnmax + column].MakeBlast(WaterList);
-		}
-	}
-	
+	if(!dangno and countturn==0)
+	//if (MessageBox(NULL, "you lose", "info", MB_OK) == IDOK)
+	//{
+	//	clean();
+	//}
+	SDL_RenderCopy(renderer, youlosetex, NULL, &youlose);
+	dangno=false;
 	SDL_RenderPresent(renderer);
 
 }
