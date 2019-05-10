@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\pic">
+      <UniqueIdentifier>{6a3e1f01-67f0-4777-9135-09a268766c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\sound">
+      <UniqueIdentifier>{4f68a934-fa1c-47dd-9bb1-a1e32b93ef65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Blast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainObj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Blast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pic\lvl1.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\lvl2.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\lvl3.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\lvl4.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\lvl0.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\pointed.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\bkground.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\Blastdown.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\Blastleft.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\Blastright.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\Blastup.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\RemainingTurn.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\hai.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\mot.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\ba.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\bay.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\bon.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\khong.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\nam.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\sau.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\tam.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+    <Image Include="pic\chin.png">
+      <Filter>Resource Files\pic</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sound\nen1.mp3">
+      <Filter>Resource Files\sound</Filter>
+    </Media>
+    <Media Include="sound\nen2.mp3">
+      <Filter>Resource Files\sound</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sound\blastsound.wav">
+      <Filter>Resource Files\sound</Filter>
+    </None>
+    <None Include="sound\watergrow.wav">
+      <Filter>Resource Files\sound</Filter>
+    </None>
+  </ItemGroup>
+</Project>

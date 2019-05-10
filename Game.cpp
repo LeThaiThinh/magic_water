@@ -2,7 +2,7 @@
 #include"MainObj.h"
 #include<time.h>
 #include <ctime>
-
+static Mix_Chunk* WaterGrow = Mix_LoadWAV("sound/watergrow.wav");
 MainObj* WaterList = new MainObj[rowmax * columnmax];
 Game::Game()
 {}
@@ -31,6 +31,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 		isRunning = true;
 	}
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	Mix_Music* nen = Mix_LoadMUS("sound/nen2.mp3");
+	Mix_PlayMusic(nen,-1);
+	Mix_PlayingMusic();
 	//bkgr
 	bkgr.h = Screen_Height; bkgr.w = Screen_Width; bkgr.x = 0; bkgr.y = 0;
 	bkground = TextureManager::LoadTexture("pic/bkground.png");
@@ -38,8 +42,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	youlose.h = Screen_Height; youlose.w = Screen_Width; youlose.x = 0; youlose.y = 0;
 	youlosetex = TextureManager::LoadTexture("pic/youlose.png");
 	//remainingturn
-	remturn.h = RemTurn_Height; remturn.w = RemTurn_Width; remturn.x = 800; remturn.y = 0;
-	RemainingTurn = TextureManager::LoadTexture("pic/RemainingTurn.png");
+	remturn.h = RemTurn_Height; remturn.w = RemTurn_Width; remturn.x = 900; remturn.y = 0;
+	RemainingTurntex = TextureManager::LoadTexture("pic/RemainingTurn.png");
 	chuc.h = 100; chuc.w = 100; chuc.x = 800 + 100; chuc.y = 200;
 	donvi.h = 100; donvi.w = 100; donvi.x = 800 + 200; donvi.y = 200;
 	//map
@@ -49,9 +53,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		{
 			
 			int a = rand() % 20;
-			if (a < 8)a = 0;
-			else if (a < 11)a = 1;
-			else if (a < 16)a = 2;
+			if (a < 5)a = 0;
+			else if (a < 7)a = 1;
+			else if (a < 17)a = 2;
 			else if (a < 19)a = 3;
 			else if (a < 20)a = 4;
 			WaterList[row * columnmax + column].SetLvl(a);
@@ -75,7 +79,7 @@ void Game::handleEvents()
 	default:
 		break;
 	}
-
+	
 	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if (event.button.button == SDL_BUTTON_LEFT and countturn>0)
@@ -86,6 +90,8 @@ void Game::handleEvents()
 			if (lvl_!=0)
 			{
 			countturn -= 1;
+
+			Mix_PlayChannel(-1, WaterGrow, 0);
 			layhangchuc();
 			layhangdonvi();
 			WaterList[event.button.x / WidthMainObj + event.button.y / HeightMainObj * columnmax].SetLvl(lvl_ + 1);
@@ -105,20 +111,26 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, bkground, NULL, &bkgr);
-	SDL_RenderCopy(renderer, RemainingTurn, NULL, &remturn);
+	SDL_RenderCopy(renderer, RemainingTurntex, NULL, &remturn);
 	SDL_RenderCopy(renderer, chuctex, NULL, &chuc);
 	SDL_RenderCopy(renderer, donvitex, NULL, &donvi);
 	int remainingwater=0;
+
 	for (int row = 0; row < rowmax; row++)
 	{
 		for (int column = 0; column < columnmax; column++)
-		{	
+		{
 			WaterList[row * columnmax + column].render();
 			if (WaterList[row * columnmax + column].GetLvl() != 0)
 				remainingwater++;
 
 		}
 	}
+	if (remainingwater == 0)
+		if (MessageBox(NULL, "you win", "info", MB_OK) == IDOK)
+		{
+			clean();
+		}
 	for (int row = 0; row < rowmax; row++)
 	{
 		for (int column = 0; column < columnmax; column++)
@@ -127,11 +139,6 @@ void Game::render()
 				dangno = true;
 		}
 	}
-	if (remainingwater == 0 )
-		if (MessageBox(NULL, "you win", "info", MB_OK) == IDOK)
-		{
-			clean();
-		}
 	if(!dangno and countturn==0)
 	//if (MessageBox(NULL, "you lose", "info", MB_OK) == IDOK)
 	//{
@@ -147,6 +154,7 @@ void Game::clean()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	Mix_Quit();
 	SDL_Quit();
 }
 

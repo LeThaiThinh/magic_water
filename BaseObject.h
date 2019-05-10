@@ -6,7 +6,7 @@ class BaseObj
 public:
 	BaseObj();
 	~BaseObj();
-	void SetRectDes(int x, int y) { des.x = x; des.y = y; };
+	void SetRectDes(int x, int y) { des.x = x; des.y = y; }
 	int getY()const { return des.y; }
 	int getX()const { return des.x; }
 	SDL_Texture* getTex()const { return ObjTex; }

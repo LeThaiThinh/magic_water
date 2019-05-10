@@ -2,6 +2,7 @@
 
 MainObj::MainObj()
 {
+	Countblastremain = 0;
 	ObjTex = NULL;
 	des.w = WidthMainObj; des.h = HeightMainObj;
 	des.x = 0; des.y = 0;
@@ -14,12 +15,11 @@ MainObj::MainObj()
 
 MainObj::~MainObj()
 {
+	ObjTex = nullptr;
 }
-
-
-
 void MainObj::update()
 {
+	Mix_Chunk* BlastSound = Mix_LoadWAV("sound/blastsound.wav");
 	switch (lvl)
 	{
 	case lvl0:
@@ -39,6 +39,9 @@ void MainObj::update()
 		break;
 	case lvl5:
 	{	
+
+		Mix_PlayChannel(-1, BlastSound, 0);
+		this->~MainObj();
 		srand(0);
 		ObjTex = TextureManager::LoadTexture("pic/lvl0.png");
 		lvl = lvl0;
@@ -84,82 +87,106 @@ void MainObj::render()
 int MainObj::MakeBlast(MainObj* waterlist)
 {
 	MainObj::Countblastremain = 0;
-//Down
-		
+	//Down
+	if (BlastDown != nullptr)
+	{
 		if (BlastDown->Get_Ismove())
 		{
-			if ((waterlist +(BlastDown->getX() + BlastWidth / 3) / WidthMainObj +(BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0
+			if ((waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0
 				and
-				(waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj +(BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax) != NULL){
-				{
-					(waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->SetLvl((waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() + 1);
-					(waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->update();
+				(waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax) != NULL) {
+					{
+						(waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->SetLvl((waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() + 1);
+						(waterlist + (BlastDown->getX() + BlastWidth / 3) / WidthMainObj + (BlastDown->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->update();
 
-					BlastDown->Set_Ismove(false);
-					BlastDown->~Blast();
-				}
+						BlastDown->Set_Ismove(false);
+						delete BlastDown;
+						BlastDown = nullptr;
+					}
 			}
-			BlastDown->MoveDown(Screen_Width * 2 / 3, Screen_Height);
-			BlastDown->render();
+			if (BlastDown != nullptr)
+			{
+				BlastDown->MoveDown(Screen_Width * 2 / 3, Screen_Height);
+				BlastDown->render();
+			}
 			Countblastremain++;
-			
+
 		}
+	}
 //Up
-		
-		if (BlastUp->Get_Ismove())
+		if (BlastUp != nullptr)
+		{
+			if (BlastUp->Get_Ismove())
 			{
-			if ((waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax )->GetLvl() != 0 
-				and 
-				(waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)  != NULL)
-			{
-				{
-					(waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax )->SetLvl((waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() + 1);
-					(waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->update();
-
-					BlastUp->Set_Ismove(false);
-					BlastUp->~Blast();
-				}
-			}
-			BlastUp->MoveUp(Screen_Width * 2 / 3, Screen_Height);
-			BlastUp->render();
-			Countblastremain++;
-			}
-		
-//Right
-		if (BlastRight->Get_Ismove())
-			{
-				if ((waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0 
-				and 
-				(waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax) != NULL)
+				if ((waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0
+					and
+					(waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax) != NULL)
 				{
 					{
-						std::cout << BlastRight->getX()  << " _ " << "" << std::endl;
+						(waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->SetLvl((waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() + 1);
+						(waterlist + (BlastUp->getX() + BlastWidth / 3) / WidthMainObj + (BlastUp->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->update();
+
+						BlastUp->Set_Ismove(false);
+						delete BlastUp;
+						BlastUp = nullptr;
+					}
+				}
+				if (BlastUp != nullptr)
+				{
+					BlastUp->MoveUp(Screen_Width * 2 / 3, Screen_Height);
+					BlastUp->render();
+				}
+				Countblastremain++;
+			}
+		}
+//Right
+		if (BlastRight != nullptr)
+		{
+			if (BlastRight->Get_Ismove())
+			{
+				if ((waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0
+					and
+					(waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax) != NULL)
+				{
+					{
 						(waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->SetLvl((waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() + 1);
 						(waterlist + (BlastRight->getX() + BlastWidth / 3) / WidthMainObj + (BlastRight->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->update();
 						BlastRight->Set_Ismove(false);
+						delete BlastRight;
+						BlastRight = nullptr;
 					}
 				}
-				BlastRight->MoveRight(Screen_Width * 2 / 3, Screen_Height);
-				BlastRight->render();
+				if (BlastRight != nullptr)
+				{
+					BlastRight->MoveRight(Screen_Width * 2 / 3, Screen_Height);
+					BlastRight->render();
+				}
 				Countblastremain++;
 			}
-			
+		}
 //Left
-		if (BlastLeft->Get_Ismove())
+		if (BlastLeft != nullptr)
+		{
+			if (BlastLeft->Get_Ismove())
 			{
-				if ((waterlist + (BlastLeft->getX() + BlastWidth / 3) / WidthMainObj + (BlastLeft->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0 
-					and 
+				if ((waterlist + (BlastLeft->getX() + BlastWidth / 3) / WidthMainObj + (BlastLeft->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() != 0
+					and
 					(waterlist + (BlastLeft->getX() + BlastWidth / 3) / WidthMainObj + (BlastLeft->getY() + BlastHeight / 3) / HeightMainObj * columnmax) != NULL)
 				{
 					(waterlist + (BlastLeft->getX() + BlastWidth / 3) / WidthMainObj + (BlastLeft->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->SetLvl((waterlist + (BlastLeft->getX() + BlastWidth / 3) / WidthMainObj + (BlastLeft->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->GetLvl() + 1);
 					(waterlist + (BlastLeft->getX() + BlastWidth / 3) / WidthMainObj + (BlastLeft->getY() + BlastHeight / 3) / HeightMainObj * columnmax)->update();
 					BlastLeft->Set_Ismove(false);
-					BlastLeft->~Blast();
-				}	
-				BlastLeft->MoveLeft(Screen_Width * 2 / 3, Screen_Height);
-				BlastLeft->render();
+					delete BlastLeft;
+					BlastLeft = nullptr;
+				}
+				if (BlastLeft != nullptr)
+				{
+					BlastLeft->MoveLeft(Screen_Width * 2 / 3, Screen_Height);
+					BlastLeft->render();
+				}
 				Countblastremain++;
 			}
+			
+		}
 		return Countblastremain;
-
 }

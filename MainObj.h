@@ -22,6 +22,7 @@ public:
 	void SetLvl(int Lvl) { lvl = Lvl; }
 	int GetLvl()const { return lvl; }
 	int MakeBlast(MainObj* waterlist);
+
 private:
 	int Countblastremain;
 	int lvl;
@@ -29,4 +30,5 @@ private:
 	Blast* BlastUp;
 	Blast* BlastRight;
 	Blast* BlastLeft;
+
 };

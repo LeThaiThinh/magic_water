@@ -1,4 +1,4 @@
-include"Blast.h"
+#include"Blast.h"
 
 Blast::Blast()
 {
@@ -9,25 +9,26 @@ Blast::Blast()
 	vx = 0;
 	vy = 0;
 	ismove = false;
-	
+	scr.x = 0;
+	scr.y = 0;
+	scr.h = 125;
+	scr.w = 125;
+	ObjTex = nullptr;
 }
 Blast::~Blast()
 {
-	des.x = 0;
-	des.y = 0;
-	des.w = 0;
-	des.h = 0;
-	vx = 0;
-	vy = 0;
-	ismove = false;
-	ObjTex = NULL;
+	des.x = NULL;
+	des.y = NULL;
+	des.w = NULL;
+	des.h = NULL;
+	vx =NULL;
+	vy = NULL;
+	ismove = NULL;
+	ObjTex = nullptr;
 }
-
-
-
 void Blast::render()
 {
-	SDL_RenderCopy(Game::renderer, ObjTex, NULL, &des);
+	SDL_RenderCopy(Game::renderer, ObjTex, &scr, &des);
 }
 
 void Blast::MoveLeft(const int& x_border, const int& y_border)
@@ -35,6 +36,7 @@ void Blast::MoveLeft(const int& x_border, const int& y_border)
 	if (ismove == true)
 	{
 		des.x -= vx;
+		//scr.x = (scr.x + 125) % 1000;
 		if (des.x+BlastWidth > x_border or des.y + BlastHeight > y_border or des.x < 0 or des.y < 0)
 		{
 			ismove = false;
@@ -51,6 +53,7 @@ void Blast::MoveUp(const int& x_border, const int& y_border)
 	if (ismove == true)
 	{
 		des.y -= vy;
+		//scr.y = (scr.y + 125) % 1000;
 		if (des.x + BlastWidth> x_border or des.y + BlastHeight >y_border or des.x<0 or des.y<0)
 		{
 			ismove = false;
@@ -67,6 +70,7 @@ void Blast::MoveDown(const int& x_border, const int& y_border)
 	if (ismove == true)
 	{
 		des.y += vy;
+		//scr.y = (scr.y + 125) % 1000;
 		if (des.x +BlastWidth> x_border or des.y+BlastHeight > y_border or des.x < 0 or des.y < 0)
 		{
 			ismove = false;
@@ -83,6 +87,7 @@ void Blast::MoveRight(const int& x_border, const int& y_border)
 	if (ismove == true)
 	{
 		des.x += vx;
+		//scr.x =(scr.x+ 125)%1000;
 		if (des.x+ BlastWidth > x_border or des.y + BlastHeight > y_border or des.x < 0 or des.y < 0)
 		{
 			ismove = false;

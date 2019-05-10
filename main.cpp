@@ -3,14 +3,12 @@ Game *game = nullptr;
 SDL_Renderer* Game::renderer=nullptr;
 int main(int argc, char *argv[])
 {
-	const int FPS = 60;
+	const int FPS = 30;
 	const int frameDelay = 1000 / FPS;
 	Uint32 frameStart;
 	int frametime;
     game = new Game();
     game->init("GameWindow", Screen_Width, Screen_Height, false);
-	srand(NULL);
-	
     while (game->running())
     {
 		frameStart = SDL_GetTicks();

@@ -13,3 +13,4 @@ void TextureManager::Draw(SDL_Texture*tex , SDL_Rect scr, SDL_Rect des)
 {
 	SDL_RenderCopy(Game::renderer, tex, &scr, &des);
 }
+
